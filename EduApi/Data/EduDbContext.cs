@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EduApi.Data
 {
-    public class EduDbContext: DbContext
+    public class EduDbContext : DbContext
     {
         public EduDbContext(DbContextOptions<EduDbContext> options)
             : base(options) { }
@@ -14,5 +14,8 @@ namespace EduApi.Data
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+        }
     }
 }

@@ -51,12 +51,10 @@ namespace EduApi.Data
             {
                 new Role()
                 {
-                    Id = 1,
                     Name = "User"
                 },
                 new Role()
                 {
-                    Id = 2,
                     Name = "Admin"
                 }
             };
@@ -69,7 +67,6 @@ namespace EduApi.Data
             {
                 new Review()
                 {
-                    Id = 1,
                     Name = "Bot",
                     Text = "Super",
                     Digit = 10,
@@ -86,7 +83,6 @@ namespace EduApi.Data
             { 
                 new Material()
                 {
-                    Id = 1,
                     Title = "Intro to WebAPI - One of the most powerful project types in C#",
                     Description = "Author description: In this video, I will give you the overview of what WebAPI is, how to set it up, how to connect to it for testing, and then some tips and tricks as well before I show you how to deploy it.",
                     Location = "https://www.youtube.com/watch?v=vN9NRqv7xmY&t=528s",
@@ -105,25 +101,21 @@ namespace EduApi.Data
             {
                 new MaterialType()
                 {
-                    Id = 1,
                     Name = "Video Tutorial",
                     Definition = "Video tutorial is a video material that focuses mostly on guiding step-by-step in dedicated topic"
                 },
                   new MaterialType()
                 {
-                    Id = 2,
                     Name = "Podcast Tutorial",
                     Definition = "Podcast Tutorial is a podcast material that focuses mostly on guiding step-by-step in dedicated topic"
                 },
                 new MaterialType()
                 {
-                    Id = 3,
                     Name = "Book",
                     Definition = "A book is a book, of course"
                 },
                 new MaterialType()
                 {
-                    Id = 4,
                     Name = "Educational portal",
                     Definition = "The Educational portal is a place where various types of courses are available"
                 },
@@ -138,14 +130,12 @@ namespace EduApi.Data
             {
                 new Author()
                 {
-                    Id = 1,
                     Name = "Rafal",
-                    Description = "Human"                    
+                    Description = "Human"
                 },
 
                 new Author()
                 {
-                    Id = 2,
                     Name = "Shark",
                     Description = "Fish"
                 }

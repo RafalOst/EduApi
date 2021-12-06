@@ -16,16 +16,16 @@ namespace EduApi.Models.Repositories
 {
     public class AccountRepository : IAccountRepository
     {
-        private readonly EduDbContext _context;
-        private readonly IPasswordHasher<User> _passwordHasher;
-        private readonly AuthenticationSettings _authenticationSettings;
+        //private readonly EduDbContext _context;
+        //private readonly IPasswordHasher<User> _passwordHasher;
+        //private readonly AuthenticationSettings _authenticationSettings;
 
-        public AccountRepository(EduDbContext context, IPasswordHasher<User> passwordHasher, AuthenticationSettings authenticationSettings)
-        {
-            _context = context;
-            _passwordHasher = passwordHasher;
-            _authenticationSettings = authenticationSettings;
-        }
+        //public AccountRepository(EduDbContext context, IPasswordHasher<User> passwordHasher, AuthenticationSettings authenticationSettings)
+        //{
+        //    _context = context;
+        //    _passwordHasher = passwordHasher;
+        //    _authenticationSettings = authenticationSettings;
+        //}
         //public async Task<string> GenerateJwt(LoginDto dto)
         //{
         //    var user = await _context.Users

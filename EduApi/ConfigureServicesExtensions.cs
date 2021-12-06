@@ -35,28 +35,28 @@ namespace EduApi
         //    services.AddScoped<IValidator<SeriesQuery>, SeriesQueryValidator>();
         //}
 
-        public static void AddAuthenticationLayer(this IServiceCollection services, IConfiguration configuration)
-        {
-            var authenticationSettings = new AuthenticationSettings();
-            configuration.GetSection("Authentication").Bind(authenticationSettings);
-            services.AddSingleton(authenticationSettings);
-            services.AddAuthentication(option =>
-            {
-                option.DefaultAuthenticateScheme = "Bearer";
-                option.DefaultScheme = "Bearer";
-                option.DefaultChallengeScheme = "Bearer";
-            }).AddJwtBearer(cfg =>
-            {
-                cfg.RequireHttpsMetadata = false;
-                cfg.SaveToken = true;
-                cfg.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidIssuer = authenticationSettings.JwtIssuer,
-                    ValidAudience = authenticationSettings.JwtIssuer,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey)),
-                };
-            });
-        }
+        //public static void AddAuthenticationLayer(this IServiceCollection services, IConfiguration configuration)
+        //{
+        //    var authenticationSettings = new AuthenticationSettings();
+        //    configuration.GetSection("Authentication").Bind(authenticationSettings);
+        //    services.AddSingleton(authenticationSettings);
+        //    services.AddAuthentication(option =>
+        //    {
+        //        option.DefaultAuthenticateScheme = "Bearer";
+        //        option.DefaultScheme = "Bearer";
+        //        option.DefaultChallengeScheme = "Bearer";
+        //    }).AddJwtBearer(cfg =>
+        //    {
+        //        cfg.RequireHttpsMetadata = false;
+        //        cfg.SaveToken = true;
+        //        cfg.TokenValidationParameters = new TokenValidationParameters
+        //        {
+        //            ValidIssuer = authenticationSettings.JwtIssuer,
+        //            ValidAudience = authenticationSettings.JwtIssuer,
+        //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey)),
+        //        };
+        //    });
+        //}
 
         public static void AddCorsPolicy(this IServiceCollection services, IConfiguration configuration)
         {

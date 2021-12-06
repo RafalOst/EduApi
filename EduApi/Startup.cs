@@ -33,7 +33,7 @@ namespace EduApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthenticationLayer(Configuration);
+            //services.AddAuthenticationLayer(Configuration);
             services.AddPersistanceLayer(Configuration, this);
             //services.AddValidationLayer();
 
@@ -42,12 +42,16 @@ namespace EduApi
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo 
-                { Title = "EduApi", Version = "v1" });
+                { 
+                    Title = "EduApi",
+                    Description = "Educational Api",
+                    Version = "v1" });
 
                 var fileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
                 options.IncludeXmlComments(filePath);
-            });       
+            });
+            services.AddCorsPolicy(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
