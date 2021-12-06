@@ -48,6 +48,8 @@ namespace EduApi.Models.Repositories
             var materials = await _context
                 .Materials
                 .Include(x => x.Reviews)
+                .Include(x => x.Author)
+                .Include(x => x.MaterialType)
                 .ToListAsync();
 
             var materialsDto = _mapper.Map<List<MaterialDto>>(materials);
@@ -60,6 +62,8 @@ namespace EduApi.Models.Repositories
             var material = await _context
                 .Materials
                 .Include(x => x.Reviews)
+                .Include(x => x.Author)
+                .Include(x => x.MaterialType)
                 .FirstOrDefaultAsync(i => i.Id == id);
 
             if (material is null)
@@ -73,6 +77,8 @@ namespace EduApi.Models.Repositories
             var material = await _context
                .Materials
                .Include(x => x.Reviews)
+               .Include(x => x.Author)
+               .Include(x => x.MaterialType)
                .FirstOrDefaultAsync(i => i.Id == id);
 
             if (material is null)
