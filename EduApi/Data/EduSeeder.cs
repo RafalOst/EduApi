@@ -37,7 +37,30 @@ namespace EduApi.Data
                     _context.Reviews.AddRange(GetReviews());
                     _context.SaveChanges();
                 }
+                if (!_context.Roles.Any())
+                {
+                    _context.Roles.AddRange(GetRoles());
+                    _context.SaveChanges();
+                }
             }
+        }
+
+        private IEnumerable<Role> GetRoles()
+        {
+            List<Role> roles = new()
+            {
+                new Role()
+                {
+                    Id = 1,
+                    Name = "User"
+                },
+                new Role()
+                {
+                    Id = 2,
+                    Name = "Admin"
+                }
+            };
+            return roles;
         }
 
         private IEnumerable<Review> GetReviews()
