@@ -33,7 +33,7 @@ namespace EduApi.Controllers
         /// <summary>
         /// GET method returns all authors
         /// </summary>
-        /// <returns>Returns list ofAutorsDto's</returns>
+        /// <returns>Returns list of AutorsDto's</returns>
         /// <response code="200">Returns dtos for all autors in databse</response>
 
         // GET: api/Author
@@ -129,7 +129,7 @@ namespace EduApi.Controllers
         public async Task<ActionResult> PostAuthor(AuthorCreateDto authorCreatedDto)
         {
             int newAuthorId = await _authorRepository.Add(authorCreatedDto);
-            return Created($"/genre/{newAuthorId}", null);
+            return Created($"/author/{newAuthorId}", null);
         }
 
         /// <summary>
