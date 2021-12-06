@@ -47,6 +47,7 @@ namespace EduApi.Models.Repositories
         {
             var authors =  await _context
                 .Authors
+                .Include(x => x.Materials)
                 .ToListAsync();
 
             var authorsDto = _mapper.Map<List<AuthorDto>>(authors);
@@ -58,6 +59,7 @@ namespace EduApi.Models.Repositories
         {
             var author = await _context
               .Authors
+              .Include(_x => _x.Materials)
               .FirstOrDefaultAsync(i => i.Id == id);
 
             if (author is null)

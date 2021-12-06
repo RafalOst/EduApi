@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using EduApi.Data;
 using EduApi.Entities;
 using EduApi.Models.Repositories.Interfaces.ModelInterfaces;
+using EduApi.Models.Dto;
+using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace EduApi.Controllers
 {
@@ -18,55 +21,129 @@ namespace EduApi.Controllers
     [ApiController]
     public class AuthorController : ControllerBase
     {
-        private readonly IAuthorRepository _context;
+        private readonly IAuthorRepository _authorRepository;
+        private readonly IMapper _mapper;
 
-        public AuthorController(IAuthorRepository context)
+        public AuthorController(IAuthorRepository context, IMapper mapper)
         {
-            _context = context;
+            _authorRepository = context;
+            _mapper = mapper;
         }
 
         /// <summary>
-        /// GET method returns all Authors
+        /// GET method returns all authors
         /// </summary>
-        /// <returns>Returns list ofAutors</returns>
+        /// <returns>Returns list ofAutorsDto's</returns>
         /// <response code="200">Returns dtos for all autors in databse</response>
 
         // GET: api/Author
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Author>>> GetAuthors()
+        public async Task<ActionResult<IEnumerable<AuthorDto>>> GetAuthors()
         {
-            return NoContent();
+            return Ok(await _authorRepository.GetAllDto());
         }
+
+        /// <summary>
+        /// GET method return autor specified by id
+        /// </summary>
+        /// <param name="autorId"></param>
+        /// <returns>Returns specified AutorDto</returns>
+        /// <response code="200">Returns specifed autors's dto</response>
 
         // GET: api/Author/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Author>> GetAuthor(int id)
+        [HttpGet("{autorId}")]
+        public async Task<ActionResult<AuthorDto>> GetAuthor(int autorId)
         {
-            return NoContent();
+            return Ok(await _authorRepository.GetSingleDto(autorId));
         }
 
-        // PUT: api/Author/5
+        /// <summary>
+        /// PATCH method partial update of specifed author
+        /// </summary>
+        /// <param name="authorId"></param>
+        /// <param name="patchDoc"></param>
+        /// <returns>Returns 204 NoContent</returns>
+        /// /// <remarks>
+        /// Sample request:
+        ///
+        ///     PATCH /Todo
+        ///     [
+        ///       {
+        ///         "op":"replace",
+        ///         "path":"/Name",
+        ///         "value": "Franek"
+        ///       },
+        ///       {
+        ///         "op":"replace",
+        ///         "path":"/Description",
+        ///         "value": "Fast"
+        ///       }
+        ///     ]
+        /// </remarks>
+        /// <response code="204">Returns no content</response>
+
+        // PATCH: api/Author/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAuthor(int id, Author author)
+        [HttpPatch("{authorId:int}")]
+        public async Task<ActionResult> UpdateAuthor(int authorId,[FromBody] JsonPatchDocument<AuthorUpdateDto> patchDoc)
         {
+
+            var authorToUpdate = await _authorRepository.GetObjectById(authorId);
+
+            AuthorUpdateDto authorToPathDto = _mapper.Map<AuthorUpdateDto>(authorToUpdate);
+
+
+            patchDoc.ApplyTo(authorToPathDto, ModelState);
+            if (!TryValidateModel(authorToPathDto))
+            {
+                return ValidationProblem(ModelState);
+            }
+
+            _mapper.Map(authorToPathDto, authorToUpdate);
+            await _authorRepository.Update(authorToUpdate);
 
             return NoContent();
         }
+
+        /// <summary>
+        /// POST method add new Author to database
+        /// </summary>
+        /// <param name="authorCreatedDto"></param>
+        /// <returns>Return endpoint to new object</returns>
+        /// /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Todo
+        ///     {
+        ///        "Name": "Bob"
+        ///        "Description": "Hamster"
+        ///        
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Returns endpoint to new author</response>
 
         // POST: api/Author
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Author>> PostAuthor(Author author)
+        public async Task<ActionResult> PostAuthor(AuthorCreateDto authorCreatedDto)
         {
-            return NoContent();
+            int newAuthorId = await _authorRepository.Add(authorCreatedDto);
+            return Created($"/genre/{newAuthorId}", null);
         }
 
-        // DELETE: api/Author/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAuthor(int id)
-        {
+        /// <summary>
+        /// DELETE method delete specifed author from database
+        /// </summary>
+        /// <param name="authorId"></param>
+        /// <returns>Return 204 NoContent</returns>
+        /// <response code="204">Returns no content</response>
 
+        // DELETE: api/Author/5
+        [HttpDelete("{authorId}")]
+        public async Task<IActionResult> DeleteAuthor([FromRoute] int authorId)
+        {
+            await _authorRepository.Delete(authorId);
             return NoContent();
         }
     }
