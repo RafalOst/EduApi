@@ -19,12 +19,12 @@ namespace EduApi.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthorController : ControllerBase
+    public class AuthorsController : ControllerBase
     {
         private readonly IAuthorRepository _authorRepository;
         private readonly IMapper _mapper;
 
-        public AuthorController(IAuthorRepository context, IMapper mapper)
+        public AuthorsController(IAuthorRepository context, IMapper mapper)
         {
             _authorRepository = context;
             _mapper = mapper;

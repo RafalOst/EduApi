@@ -17,8 +17,8 @@ namespace EduApi.Services.Profiles
 
             CreateMap<Material, MaterialDto>()
                 .ForMember(x => x.PublishDate, s => s.MapFrom(s => s.PublishDate.ToShortDateString()))
-                .ForMember(x => x.Author, s => s.MapFrom(s => s.Author.Name))
-                .ForMember(x => x.MaterialType, s => s.MapFrom(s => s.MaterialType.Name));
+                .ForMember(x => x.Author, s => s.MapFrom(s => s.Author.Name.ToString()))
+                .ForMember(x => x.MaterialType, s => s.MapFrom(s => s.MaterialType.Name.ToString()));
             CreateMap<MaterialDto, Material>();
             CreateMap<Material, MateriaUpdatelDto>().ReverseMap();
             CreateMap<Material, MaterialCreateDto>().ReverseMap();

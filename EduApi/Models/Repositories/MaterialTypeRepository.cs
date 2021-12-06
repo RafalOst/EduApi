@@ -23,7 +23,7 @@ namespace EduApi.Models.Repositories
 
         public async Task<int> Add(MaterialTypeCreateDto objectToCreate)
         {
-            var materialTypeModel = _mapper.Map<Material>(objectToCreate);
+            var materialTypeModel = _mapper.Map<MaterialType>(objectToCreate);
             await _context.AddAsync(materialTypeModel);
             await _context.SaveChangesAsync();
 
@@ -47,7 +47,6 @@ namespace EduApi.Models.Repositories
         {
             var materialType = await _context
                .MaterialTypes
-               .Include(x => x.Materials)
                .ToListAsync();
 
             var materialsTypeDto = _mapper.Map<List<MaterialTypeDto>>(materialType);
