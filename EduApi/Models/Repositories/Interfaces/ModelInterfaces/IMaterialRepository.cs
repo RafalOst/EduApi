@@ -1,6 +1,13 @@
-﻿namespace EduApi.Models.Repositories.Interfaces.ModelInterfaces
+﻿using EduApi.Entities;
+using EduApi.Models.Dto;
+
+namespace EduApi.Models.Repositories.Interfaces.ModelInterfaces
 {
-    public interface IMaterialRepository
+    public interface IMaterialRepository:
+        ICreateable<ReviewCreateDto>,
+        IDeletable,
+        IReadable<Material, MaterialDto>,
+        IUpdateable<Material>
     {
     }
 }
