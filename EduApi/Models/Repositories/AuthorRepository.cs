@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using EduApi.Data;
 using EduApi.Entities;
+using EduApi.Exceptions;
 using EduApi.Models.Dto;
 using EduApi.Models.Repositories.Interfaces.ModelInterfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -19,34 +21,73 @@ namespace EduApi.Models.Repositories
             _mapper = mapper;
         }
 
-        public Task<int> Add(int id)
+        public async Task<int> Add(AuthorCreateDto objectToCreate)
         {
-            throw new System.NotImplementedException();
+            var authorModel = _mapper.Map<Author>(objectToCreate);
+            await _context.AddAsync(authorModel);
+            await _context.SaveChangesAsync();
+
+            return authorModel.Id;
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new System.NotImplementedException();
+            var authorToDelete = await _context
+                .Authors
+                .FirstOrDefaultAsync(i => i.Id == id);
+
+            if (authorToDelete is null)
+                throw new NotFoundException("Author not found");
+
+            _context.Authors.Remove(authorToDelete);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<AuthorDto>> GetAllDto()
+        public async Task<IEnumerable<AuthorDto>> GetAllDto()
         {
-            throw new System.NotImplementedException();
+            var authors =  await _context
+                .Authors
+                .ToListAsync();
+
+            var authorsDto = _mapper.Map<List<AuthorDto>>(authors);
+
+            return authorsDto;
         }
 
-        public Task<Author> GetObjectById()
+        public async Task<Author> GetObjectById(int id)
         {
-            throw new System.NotImplementedException();
+            var author = await _context
+              .Authors
+              .FirstOrDefaultAsync(i => i.Id == id);
+
+            if (author is null)
+                throw new NotFoundException("Author not found");
+
+            return author;
         }
 
-        public Task<AuthorDto> GetSingleDto(int id)
+        public async Task<AuthorDto> GetSingleDto(int id)
         {
-            throw new System.NotImplementedException();
+            var author = await _context
+             .Authors
+             .Include(i => i.Materials)
+             .FirstOrDefaultAsync(i => i.Id == id);
+
+            if (author is null)
+                throw new NotFoundException("Author not found");
+
+            var authorDto = _mapper.Map<AuthorDto>(author);
+
+            return authorDto;
         }
 
-        public Task Update(Author obj)
+        public async Task Update(Author authorToUpdate)
         {
-            throw new System.NotImplementedException();
+            if (authorToUpdate is null)
+                throw new NotFoundException("Author not found");
+
+            _context.Authors.Update(authorToUpdate);
+            await _context.SaveChangesAsync();
         }
     }
 }
