@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using EduApi.Data;
 using EduApi.Entities;
+using EduApi.Exceptions;
 using EduApi.Models.Dto;
 using EduApi.Models.Repositories.Interfaces.ModelInterfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -19,34 +21,75 @@ namespace EduApi.Models.Repositories
             _mapper = mapper;
         }
 
-        public Task<int> Add(ReviewCreateDto objectToCreate)
+        public async Task<int> Add(MaterialCreateDto objectToCreate)
         {
-            throw new System.NotImplementedException();
+            var materialModel = _mapper.Map<Material>(objectToCreate);
+            await _context.AddAsync(materialModel);
+            await _context.SaveChangesAsync();
+
+            return materialModel.Id;
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new System.NotImplementedException();
+            var materialToDelete = await _context
+                .Materials
+                .FirstOrDefaultAsync(i => i.Id == id);
+
+            if (materialToDelete is null)
+                throw new NotFoundException("Author not found");
+
+            _context.Materials.Remove(materialToDelete);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<MaterialDto>> GetAllDto()
+        public async Task<IEnumerable<MaterialDto>> GetAllDto()
         {
-            throw new System.NotImplementedException();
+            var materials = await _context
+                .Materials
+                .Include(x => x.Reviews)
+                .ToListAsync();
+
+            var materialsDto = _mapper.Map<List<MaterialDto>>(materials);
+
+            return materialsDto;
         }
 
-        public Task<Material> GetObjectById(int id)
+        public async Task<Material> GetObjectById(int id)
         {
-            throw new System.NotImplementedException();
+            var material = await _context
+                .Materials
+                .Include(x => x.Reviews)
+                .FirstOrDefaultAsync(i => i.Id == id);
+
+            if (material is null)
+                throw new NotFoundException("Material not found");
+
+            return material;
         }
 
-        public Task<MaterialDto> GetSingleDto(int id)
+        public async Task<MaterialDto> GetSingleDto(int id)
         {
-            throw new System.NotImplementedException();
+            var material = await _context
+               .Materials
+               .Include(x => x.Reviews)
+               .FirstOrDefaultAsync(i => i.Id == id);
+
+            if (material is null)
+                throw new NotFoundException("Material not found");
+
+            var materialDto = _mapper.Map<MaterialDto>(material);
+
+            return materialDto;
         }
 
-        public Task Update(Material obj)
+        public async Task Update(Material materialToUpdate)
         {
-            throw new System.NotImplementedException();
+            if (materialToUpdate is null)
+                throw new NotFoundException("Material not found");
+
+            _context.Materials.Update(materialToUpdate);
+            await _context.SaveChangesAsync();
         }
     }
 }
