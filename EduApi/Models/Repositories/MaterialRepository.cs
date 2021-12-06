@@ -4,7 +4,7 @@ using EduApi.Models.Repositories.Interfaces.ModelInterfaces;
 
 namespace EduApi.Models.Repositories
 {
-    public class MaterialRepository : IMaterialrRepository
+    public class MaterialRepository : IMaterialRepository
     {
         private readonly EduDbContext _context;
         private readonly IMapper _mapper;

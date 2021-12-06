@@ -23,7 +23,7 @@ namespace EduApi
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IMaterialTypeRepository, MaterialTypeRepository>();
-            services.AddScoped<IMaterialrRepository, MaterialRepository>();
+            services.AddScoped<IMaterialRepository, MaterialRepository>();
             services.AddScoped<IReviewRepository, ReviewRepository>();
         }
 

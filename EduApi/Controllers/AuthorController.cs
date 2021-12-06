@@ -7,39 +7,42 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EduApi.Data;
 using EduApi.Entities;
+using EduApi.Models.Repositories.Interfaces.ModelInterfaces;
 
 namespace EduApi.Controllers
 {
+    /// <summary>
+    /// Author API controller offers GET, POST, PATCH, DELETE request methods
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class AuthorController : ControllerBase
     {
-        private readonly EduDbContext _context;
+        private readonly IAuthorRepository _context;
 
-        public AuthorController(EduDbContext context)
+        public AuthorController(IAuthorRepository context)
         {
             _context = context;
         }
+
+        /// <summary>
+        /// GET method returns all Authors
+        /// </summary>
+        /// <returns>Returns list ofAutors</returns>
+        /// <response code="200">Returns dtos for all autors in databse</response>
 
         // GET: api/Author
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Author>>> GetAuthors()
         {
-            return await _context.Authors.ToListAsync();
+            return NoContent();
         }
 
         // GET: api/Author/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Author>> GetAuthor(int id)
         {
-            var author = await _context.Authors.FindAsync(id);
-
-            if (author == null)
-            {
-                return NotFound();
-            }
-
-            return author;
+            return NoContent();
         }
 
         // PUT: api/Author/5
@@ -47,28 +50,6 @@ namespace EduApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAuthor(int id, Author author)
         {
-            if (id != author.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(author).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AuthorExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
 
             return NoContent();
         }
@@ -78,31 +59,15 @@ namespace EduApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Author>> PostAuthor(Author author)
         {
-            _context.Authors.Add(author);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetAuthor", new { id = author.Id }, author);
+            return NoContent();
         }
 
         // DELETE: api/Author/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAuthor(int id)
         {
-            var author = await _context.Authors.FindAsync(id);
-            if (author == null)
-            {
-                return NotFound();
-            }
-
-            _context.Authors.Remove(author);
-            await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool AuthorExists(int id)
-        {
-            return _context.Authors.Any(e => e.Id == id);
         }
     }
 }

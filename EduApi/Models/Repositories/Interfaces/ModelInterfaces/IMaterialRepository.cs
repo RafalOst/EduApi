@@ -1,6 +1,6 @@
 ﻿namespace EduApi.Models.Repositories.Interfaces.ModelInterfaces
 {
-    public interface IMaterialrRepository
+    public interface IMaterialRepository
     {
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EduApi.Data;
 using EduApi.Entities;
+using EduApi.Models.Repositories.Interfaces.ModelInterfaces;
 
 namespace EduApi.Controllers
 {
@@ -14,9 +15,9 @@ namespace EduApi.Controllers
     [ApiController]
     public class MaterialTypesController : ControllerBase
     {
-        private readonly EduDbContext _context;
+        private readonly IMaterialTypeRepository _context;
 
-        public MaterialTypesController(EduDbContext context)
+        public MaterialTypesController(IMaterialTypeRepository context)
         {
             _context = context;
         }
@@ -25,21 +26,14 @@ namespace EduApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MaterialType>>> GetMaterialTypes()
         {
-            return await _context.MaterialTypes.ToListAsync();
+            return NoContent();
         }
 
         // GET: api/MaterialTypes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<MaterialType>> GetMaterialType(int id)
         {
-            var materialType = await _context.MaterialTypes.FindAsync(id);
-
-            if (materialType == null)
-            {
-                return NotFound();
-            }
-
-            return materialType;
+            return NoContent();
         }
 
         // PUT: api/MaterialTypes/5
@@ -47,29 +41,6 @@ namespace EduApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMaterialType(int id, MaterialType materialType)
         {
-            if (id != materialType.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(materialType).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MaterialTypeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
             return NoContent();
         }
 
@@ -78,31 +49,14 @@ namespace EduApi.Controllers
         [HttpPost]
         public async Task<ActionResult<MaterialType>> PostMaterialType(MaterialType materialType)
         {
-            _context.MaterialTypes.Add(materialType);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetMaterialType", new { id = materialType.Id }, materialType);
+            return NoContent();
         }
 
         // DELETE: api/MaterialTypes/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMaterialType(int id)
         {
-            var materialType = await _context.MaterialTypes.FindAsync(id);
-            if (materialType == null)
-            {
-                return NotFound();
-            }
-
-            _context.MaterialTypes.Remove(materialType);
-            await _context.SaveChangesAsync();
-
             return NoContent();
-        }
-
-        private bool MaterialTypeExists(int id)
-        {
-            return _context.MaterialTypes.Any(e => e.Id == id);
         }
     }
 }
