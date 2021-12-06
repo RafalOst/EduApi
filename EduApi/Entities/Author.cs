@@ -12,6 +12,5 @@ namespace EduApi.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public IEnumerable<Material> Materials { get; set; }
-        public int Counter { get { return Materials?.Count() ?? 0; } }
     }
 }

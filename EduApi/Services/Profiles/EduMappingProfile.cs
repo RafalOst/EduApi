@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EduApi.Entities;
 using EduApi.Models.Dto;
+using System.Linq;
 
 namespace EduApi.Services.Profiles
 {
@@ -8,11 +9,17 @@ namespace EduApi.Services.Profiles
     {
         public EduMappingProfile()
         {
-            CreateMap<Author, AuthorDto>().ReverseMap();
+            CreateMap<Author, AuthorDto>()
+                .ForMember(x => x.PublishedMaterials, s => s.MapFrom(s => s.Materials.Count()));
+            CreateMap<AuthorDto, Author>();
             CreateMap<Author, AuthorUpdateDto>().ReverseMap();
             CreateMap<Author, AuthorCreateDto>().ReverseMap();
 
-            CreateMap<Material, MaterialDto>().ReverseMap();
+            CreateMap<Material, MaterialDto>()
+                .ForMember(x => x.PublishDate, s => s.MapFrom(s => s.PublishDate.ToShortDateString()))
+                .ForMember(x => x.Author, s => s.MapFrom(s => s.Author.Name))
+                .ForMember(x => x.MaterialType, s => s.MapFrom(s => s.MaterialType.Name));
+            CreateMap<MaterialDto, Material>();
             CreateMap<Material, MateriaUpdatelDto>().ReverseMap();
             CreateMap<Material, MaterialCreateDto>().ReverseMap();
 
