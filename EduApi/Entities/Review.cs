@@ -8,7 +8,7 @@
         public int Digit { get; set; }
 
 
-        public MaterialType MaterialType { get; set; }
-        public int MaterialTypeId { get; set; }
+        public Material Material { get; set; }
+        public int MaterialId { get; set; }
     }
 }
