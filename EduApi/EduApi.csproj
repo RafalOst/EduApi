@@ -34,6 +34,10 @@
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.14.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="EduAPILogs\" />
+  </ItemGroup>
 	
 	<PropertyGroup>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
