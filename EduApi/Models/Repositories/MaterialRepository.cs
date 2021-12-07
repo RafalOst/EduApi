@@ -7,6 +7,7 @@ using EduApi.Models.Repositories.Interfaces.ModelInterfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EduApi.Models.Repositories
@@ -45,7 +46,7 @@ namespace EduApi.Models.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<MaterialDto>> GetAllDto()
+        public async Task<IEnumerable<MaterialDto>> GetAllDto(SeriesQuery query)
         {
             var materials = await _context
                 .Materials
@@ -55,6 +56,16 @@ namespace EduApi.Models.Repositories
                 .ToListAsync();
 
             var materialsDto = _mapper.Map<List<MaterialDto>>(materials);
+
+            var filterMaterials = materialsDto
+                .Where(s => query.SearchMaterialType == null
+                || s.MaterialType.ToLower().Contains(query.SearchMaterialType.ToLower()));
+
+            if (query.IsSorted == true)
+            {
+                var sortedMaterialsDto = filterMaterials.OrderByDescending(s => s.PublishDate).ToList();
+                return sortedMaterialsDto;
+            }
 
             return materialsDto;
         }

@@ -12,6 +12,7 @@ using AutoMapper;
 using EduApi.Models.Dto;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Authorization;
+using EduApi.Models;
 
 namespace EduApi.Controllers
 {
@@ -39,9 +40,9 @@ namespace EduApi.Controllers
 
         // GET: api/Materials
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MaterialDto>>> GetMaterials()
+        public async Task<ActionResult<IEnumerable<MaterialDto>>> GetMaterials([FromQuery] SeriesQuery query)
         {
-            return Ok(await _materialsRepository.GetAllDto());
+            return Ok(await _materialsRepository.GetAllDto(query));
         }
 
         /// <summary>
