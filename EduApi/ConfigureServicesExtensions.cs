@@ -35,7 +35,6 @@ namespace EduApi
             services.AddScoped<ErrorHandlingMiddleware>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
-            //services.AddScoped<IValidator<SeriesQuery>, SeriesQueryValidator>();
         }
 
         public static void AddAuthenticationLayer(this IServiceCollection services, IConfiguration configuration)

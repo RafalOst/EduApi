@@ -72,6 +72,9 @@ namespace EduApi.Models.Repositories
             var materialType = await _context
              .MaterialTypes
              .Include(_x => _x.Materials)
+                .ThenInclude(x => x.Author)
+             .Include(_x => _x.Materials)
+                .ThenInclude(x => x.Reviews)
              .FirstOrDefaultAsync(i => i.Id == id);
 
             if (materialType is null)
