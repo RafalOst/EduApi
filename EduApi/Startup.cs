@@ -33,12 +33,11 @@ namespace EduApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddAuthenticationLayer(Configuration);
+            services.AddAuthenticationLayer(Configuration);
             services.AddPersistanceLayer(Configuration, this);
-            //services.AddValidationLayer();
+            services.AddValidationLayer();
 
-            services.AddControllers().AddFluentValidation().AddNewtonsoftJson();
-            
+            services.AddControllers().AddFluentValidation().AddNewtonsoftJson();          
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo 
