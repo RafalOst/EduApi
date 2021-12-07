@@ -12,6 +12,8 @@ namespace EduApi.Controllers
     /// <summary>
     /// Author API controller offers GET, POST, PATCH, DELETE request methods
     /// </summary>
+    /// 
+
     [Route("api/[controller]")]
     [ApiController]
     public class MaterialTypesController : ControllerBase
@@ -32,6 +34,7 @@ namespace EduApi.Controllers
         /// <response code="200">Returns dtos for all material type in databse</response>
 
         // GET: api/MaterialTypes
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MaterialTypeDto>>> GetMaterialTypes()
         {
@@ -46,6 +49,7 @@ namespace EduApi.Controllers
         /// <response code="200">Returns specifed materials type's dto</response>
 
         // GET: api/MaterialTypes/5
+        [Authorize]
         [HttpGet("{materialTypeId}")]
         public async Task<ActionResult<MaterialTypeDto>> GetMaterialType(int materialTypeId)
         {

@@ -13,6 +13,8 @@ namespace EduApi.Controllers
     /// <summary>
     /// Reviews API controller offers GET, POST, PATCH, DELETE request methods
     /// </summary>
+    /// 
+    
     [Route("api/Materials/{materialId:int}/[controller]")]
     [ApiController]
     public class ReviewsController : ControllerBase
@@ -34,6 +36,7 @@ namespace EduApi.Controllers
         /// <response code="200">Returns dtos for all reviews for specifed materials</response>
 
         // GET: api/Reviews
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ReviewDto>>> GetReviews([FromRoute] int materialId)
         {
@@ -49,6 +52,7 @@ namespace EduApi.Controllers
         /// <response code="200">Returns specifed review's dto</response>
 
         // GET: api/Reviews/5
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<ReviewDto>> GetReview([FromRoute] int materialId, [FromRoute] int reviewId)
         {
@@ -89,6 +93,7 @@ namespace EduApi.Controllers
 
         // PATCH: api/Reviews/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize]
         [HttpPatch("{reviewId:int}")]
         public async Task<ActionResult> PatchReview([FromRoute] int materialId, [FromRoute] int reviewId, [FromBody] JsonPatchDocument<ReviewUpdateDto> patchDoc)
         {
@@ -131,6 +136,7 @@ namespace EduApi.Controllers
 
         // POST: api/Reviews
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<Review>> PostReview(ReviewCreateDto reviewCreatedDto, [FromRoute] int materialId)
         {

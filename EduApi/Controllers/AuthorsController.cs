@@ -12,6 +12,7 @@ namespace EduApi.Controllers
     /// <summary>
     /// Author API controller offers GET, POST, PATCH, DELETE request methods
     /// </summary>
+
     [Route("api/[controller]")]
     [ApiController]
     public class AuthorsController : ControllerBase
@@ -33,6 +34,7 @@ namespace EduApi.Controllers
 
         // GET: api/Author
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<AuthorDto>>> GetAuthors()
         {
             return Ok(await _authorRepository.GetAllDto());
@@ -47,6 +49,7 @@ namespace EduApi.Controllers
 
         // GET: api/Author/5
         [HttpGet("{autorId}")]
+        [Authorize]
         public async Task<ActionResult<AuthorDto>> GetAuthor(int autorId)
         {
             return Ok(await _authorRepository.GetSingleDto(autorId));
