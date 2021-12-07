@@ -115,7 +115,7 @@ namespace EduApi.Controllers
         ///
         ///     POST /Todo
         ///     {
-        ///        "Name": "Bob"
+        ///        "Name": "Bob",
         ///        "Description": "Hamster"
         ///        
         ///     }

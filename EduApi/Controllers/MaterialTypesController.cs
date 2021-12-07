@@ -114,7 +114,7 @@ namespace EduApi.Controllers
         ///
         ///     POST /Todo
         ///     {
-        ///        "Name": "Book"
+        ///        "Name": "Book",
         ///        "Definition": "A book is a book, of course"
         ///        
         ///     }
