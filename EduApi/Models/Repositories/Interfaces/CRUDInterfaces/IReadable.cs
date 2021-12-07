@@ -8,6 +8,6 @@ namespace EduApi.Models.Repositories.Interfaces
         Task<Dto> GetSingleDto(int id);
         Task<T> GetObjectById(int id);
         Task<IEnumerable<Dto>> GetAllDto();
-      
+
     }
 }

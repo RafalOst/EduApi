@@ -45,7 +45,7 @@ namespace EduApi.Models.Repositories
 
         public async Task<IEnumerable<AuthorDto>> GetAllDto()
         {
-            var authors =  await _context
+            var authors = await _context
                 .Authors
                 .Include(x => x.Materials)
                 .ThenInclude(x => x.MaterialType)

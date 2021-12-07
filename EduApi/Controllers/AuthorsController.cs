@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using EduApi.Data;
-using EduApi.Entities;
-using EduApi.Models.Repositories.Interfaces.ModelInterfaces;
+﻿using AutoMapper;
 using EduApi.Models.Dto;
-using AutoMapper;
-using Microsoft.AspNetCore.JsonPatch;
+using EduApi.Models.Repositories.Interfaces.ModelInterfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EduApi.Controllers
 {
@@ -87,7 +81,7 @@ namespace EduApi.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPatch("{authorId:int}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> UpdateAuthor(int authorId,[FromBody] JsonPatchDocument<AuthorUpdateDto> patchDoc)
+        public async Task<ActionResult> UpdateAuthor(int authorId, [FromBody] JsonPatchDocument<AuthorUpdateDto> patchDoc)
         {
 
             var authorToUpdate = await _authorRepository.GetObjectById(authorId);

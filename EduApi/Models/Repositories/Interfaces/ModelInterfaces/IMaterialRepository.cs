@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace EduApi.Models.Repositories.Interfaces.ModelInterfaces
 {
-    public interface IMaterialRepository:
+    public interface IMaterialRepository :
         ICreateable<MaterialCreateDto>,
         IDeletable,
         IUpdateable<Material>

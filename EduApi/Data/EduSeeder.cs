@@ -79,8 +79,8 @@ namespace EduApi.Data
 
         private IEnumerable<Material> GetMaterials()
         {
-            List<Material> materials = new() 
-            { 
+            List<Material> materials = new()
+            {
                 new Material()
                 {
                     Title = "Intro to WebAPI - One of the most powerful project types in C#",
@@ -90,7 +90,7 @@ namespace EduApi.Data
 
                     AuthorId = 1,
                     MaterialTypeId = 1
-                }        
+                }
             };
             return materials;
         }
@@ -104,7 +104,7 @@ namespace EduApi.Data
                     Name = "Video Tutorial",
                     Definition = "Video tutorial is a video material that focuses mostly on guiding step-by-step in dedicated topic"
                 },
-                  new MaterialType()
+                new MaterialType()
                 {
                     Name = "Podcast Tutorial",
                     Definition = "Podcast Tutorial is a podcast material that focuses mostly on guiding step-by-step in dedicated topic"

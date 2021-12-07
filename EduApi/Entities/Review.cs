@@ -6,11 +6,11 @@ namespace EduApi.Entities
     {
         public int Id { get; set; }
         [Required]
-        public string Name { get; set;}
+        public string Name { get; set; }
         public string Text { get; set; }
 
         [Required]
-        [Range(1,10)]
+        [Range(1, 10)]
         public int Digit { get; set; }
 
 

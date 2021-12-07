@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EduApi.Models.Dto
+﻿namespace EduApi.Models.Dto
 {
     public class MaterialCreateDto
     {

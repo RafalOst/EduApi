@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace EduApi.Models.Repositories.Interfaces.ModelInterfaces
 {
-    public interface IReviewRepository:
+    public interface IReviewRepository :
         IUpdateable<Review>
     {
         Task<int> Add(ReviewCreateDto objectToCreate, int materialId);

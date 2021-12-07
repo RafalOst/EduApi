@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using EduApi.Data;
+﻿using EduApi.Data;
 using EduApi.Entities;
 using EduApi.Exceptions;
 using EduApi.Models.Dto;

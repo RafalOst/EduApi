@@ -38,7 +38,7 @@ namespace EduApi.Models.Repositories
 
             var material = await _context.Materials.Include(x => x.Reviews).FirstOrDefaultAsync(s => s.Id == materialId);
 
-            var review =  material.Reviews.FirstOrDefault(s => s.Id == reviewId);
+            var review = material.Reviews.FirstOrDefault(s => s.Id == reviewId);
 
             if (review is null)
                 throw new NotFoundException("Review not found");
@@ -88,7 +88,7 @@ namespace EduApi.Models.Repositories
             if (review is null)
                 throw new NotFoundException("Review not found");
 
-            var reviewDto = _mapper.Map<ReviewDto>(review); 
+            var reviewDto = _mapper.Map<ReviewDto>(review);
 
             return reviewDto;
         }

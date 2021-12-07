@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using EduApi.Data;
+﻿using AutoMapper;
 using EduApi.Entities;
-using EduApi.Models.Repositories.Interfaces.ModelInterfaces;
-using AutoMapper;
 using EduApi.Models.Dto;
-using Microsoft.AspNetCore.JsonPatch;
+using EduApi.Models.Repositories.Interfaces.ModelInterfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EduApi.Controllers
 {
