@@ -4,10 +4,10 @@ namespace EduApi.Models.Dto
 {
     public class ReviewCreateDto
     {
-        [Required]
+        [Required, StringLength(50, MinimumLength = 1)]
         public string Name { get; set; }
 
-        [Required]
+        [Required, StringLength(250, MinimumLength = 1)]
         public string Text { get; set; }
 
         [Required]
