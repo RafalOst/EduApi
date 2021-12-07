@@ -11,6 +11,7 @@ using EduApi.Models.Repositories.Interfaces.ModelInterfaces;
 using AutoMapper;
 using EduApi.Models.Dto;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EduApi.Controllers
 {
@@ -100,6 +101,7 @@ namespace EduApi.Controllers
         // PATCH: api/Materials/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPatch("{materialId:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> PatchMaterial(int materialId, [FromBody] JsonPatchDocument<MateriaUpdatelDto> patchDoc)
         {
             var materialToUpdate = await _materialsRepository.GetObjectById(materialId);
@@ -142,6 +144,7 @@ namespace EduApi.Controllers
         // POST: api/Materials
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> PostMaterial(MaterialCreateDto materialCreatedDto)
         {
             int newMaterialId = await _materialsRepository.Add(materialCreatedDto);
@@ -157,6 +160,7 @@ namespace EduApi.Controllers
 
         // DELETE: api/Materials/5
         [HttpDelete("{materialId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteMaterial(int materialId)
         {
             await _materialsRepository.Delete(materialId);

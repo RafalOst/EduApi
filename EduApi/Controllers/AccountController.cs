@@ -1,5 +1,6 @@
 ﻿using EduApi.Models.Dto;
 using EduApi.Models.Repositories.Interfaces.ModelInterfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -63,6 +64,7 @@ namespace EduApi.Controllers
         /// <returns>Returns endpoint to new object</returns>
         /// <response code="200">Returns endpoint to new admin</response>
         [HttpPost("register/admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> RegisterAdmin([FromBody] RegisterUserDto dto)
         {
             await _accountRepository.RegisterAdmin(dto);

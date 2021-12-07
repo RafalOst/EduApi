@@ -11,6 +11,7 @@ using EduApi.Models.Repositories.Interfaces.ModelInterfaces;
 using AutoMapper;
 using EduApi.Models.Dto;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EduApi.Controllers
 {
@@ -152,6 +153,7 @@ namespace EduApi.Controllers
 
         // DELETE: api/Reviews/5
         [HttpDelete("{reviewId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteReview([FromRoute] int materialId, [FromRoute] int reviewId)
         {
             await _reviewRepository.Delete(materialId, reviewId);

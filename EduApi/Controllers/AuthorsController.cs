@@ -11,6 +11,7 @@ using EduApi.Models.Repositories.Interfaces.ModelInterfaces;
 using EduApi.Models.Dto;
 using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EduApi.Controllers
 {
@@ -85,6 +86,7 @@ namespace EduApi.Controllers
         // PATCH: api/Author/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPatch("{authorId:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> UpdateAuthor(int authorId,[FromBody] JsonPatchDocument<AuthorUpdateDto> patchDoc)
         {
 
@@ -126,6 +128,7 @@ namespace EduApi.Controllers
         // POST: api/Author
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> PostAuthor(AuthorCreateDto authorCreatedDto)
         {
             int newAuthorId = await _authorRepository.Add(authorCreatedDto);
@@ -141,6 +144,7 @@ namespace EduApi.Controllers
 
         // DELETE: api/Author/5
         [HttpDelete("{authorId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteAuthor([FromRoute] int authorId)
         {
             await _authorRepository.Delete(authorId);
