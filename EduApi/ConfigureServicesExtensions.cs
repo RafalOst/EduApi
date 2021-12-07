@@ -1,5 +1,6 @@
 using EduApi.Data;
 using EduApi.Entities;
+using EduApi.Middleware;
 using EduApi.Models.Dto;
 using EduApi.Models.Repositories;
 using EduApi.Models.Repositories.Interfaces.ModelInterfaces;
@@ -31,7 +32,7 @@ namespace EduApi
 
         public static void AddValidationLayer(this IServiceCollection services)
         {
-            //services.AddScoped<ErrorHandlingMiddleware>();
+            services.AddScoped<ErrorHandlingMiddleware>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
             //services.AddScoped<IValidator<SeriesQuery>, SeriesQueryValidator>();

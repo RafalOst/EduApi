@@ -35,10 +35,11 @@ namespace EduApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthenticationLayer(Configuration);
+            services.AddControllers().AddFluentValidation().AddNewtonsoftJson();
             services.AddPersistanceLayer(Configuration, this);
             services.AddValidationLayer();
 
-            services.AddControllers().AddFluentValidation().AddNewtonsoftJson();          
+                   
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo 
@@ -57,6 +58,8 @@ namespace EduApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, EduSeeder seeder)
         {
+            app.UseCors("FrontEndClient");
+
             seeder.Seed();
 
             if (env.IsDevelopment())
