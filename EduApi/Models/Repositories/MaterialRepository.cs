@@ -5,6 +5,7 @@ using EduApi.Exceptions;
 using EduApi.Models.Dto;
 using EduApi.Models.Repositories.Interfaces.ModelInterfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -24,6 +25,7 @@ namespace EduApi.Models.Repositories
         public async Task<int> Add(MaterialCreateDto objectToCreate)
         {
             var materialModel = _mapper.Map<Material>(objectToCreate);
+            materialModel.PublishDate = DateTime.Now;
             await _context.AddAsync(materialModel);
             await _context.SaveChangesAsync();
 

@@ -48,6 +48,7 @@ namespace EduApi.Models.Repositories
             var authors =  await _context
                 .Authors
                 .Include(x => x.Materials)
+                .ThenInclude(x => x.MaterialType)
                 .ToListAsync();
 
             var authorsDto = _mapper.Map<List<AuthorDto>>(authors);

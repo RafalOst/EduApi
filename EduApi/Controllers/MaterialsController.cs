@@ -129,11 +129,10 @@ namespace EduApi.Controllers
         ///
         ///     POST /Todo
         ///     {
-        ///        "Title": "C# for Dummies"
-        ///        "Description": "All you need to know for start"
-        ///        "Location": "Nowhere, Kansas-USA."
-        ///        "PublishDate":"2018.01.01"
-        ///        "AuthorId": 1
+        ///        "Title": "C# for Dummies",
+        ///        "Description": "All you need to know for start",
+        ///        "Location": "Nowhere, Kansas-USA.",
+        ///        "AuthorId": 1,
         ///        "MaterialTypeId": 3     
         ///     }
         ///
