@@ -52,7 +52,7 @@ namespace EduApi.Controllers
 
         // GET: api/Materials/5
         [HttpGet("{materialId}")]
-        public async Task<ActionResult<Material>> GetMaterial(int materialId)
+        public async Task<ActionResult<MaterialDto>> GetMaterial(int materialId)
         {
             return Ok(await _materialsRepository.GetSingleDto(materialId));
         }
